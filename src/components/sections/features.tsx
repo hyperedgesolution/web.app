@@ -85,7 +85,7 @@ function FeatureRow({
           className={`${isEven ? "" : "lg:order-2"}`}
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} ring-1 ring-white/5`}>
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} ring-1 ring-primary/10`}>
               <Icon className="h-5 w-5 text-primary" />
             </div>
             <span className="text-xs font-mono text-muted-foreground/60">
@@ -111,7 +111,7 @@ function FeatureRow({
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-50`} />
             <div className="absolute inset-0 dot-bg opacity-20" />
             <div className="relative">
-              <Icon className="h-16 w-16 sm:h-20 sm:w-20 text-primary/20" strokeWidth={1} />
+              <Icon className="h-16 w-16 sm:h-20 sm:w-20 text-primary/10" strokeWidth={1} />
             </div>
             {/* Corner decorations */}
             <div className="absolute top-3 left-3 h-6 w-6 border-l border-t border-primary/20 rounded-tl-lg" />

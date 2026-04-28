@@ -109,7 +109,7 @@ function ProcessStep({
     >
       {/* Icon circle */}
       <div className="relative inline-flex mb-6">
-        <div className="h-20 w-20 rounded-2xl bg-card border border-border flex items-center justify-center group-hover:border-primary/30 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary/5">
+        <div className="h-20 w-20 rounded-2xl bg-white border border-border flex items-center justify-center group-hover:border-primary/30 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary/5">
           <Icon className="h-7 w-7 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
         </div>
         <div className="absolute -top-1.5 -right-1.5 h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold">
