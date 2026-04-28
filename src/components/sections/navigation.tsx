@@ -3,17 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import {
-  Menu,
-  X,
-  Hexagon,
-} from "lucide-react";
+import { Hexagon, Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
   { label: "Solutions", href: "#solutions" },
   { label: "Features", href: "#features" },
   { label: "Process", href: "#process" },
-  { label: "Testimonials", href: "#testimonials" },
+  { label: "Clients", href: "#testimonials" },
 ];
 
 export function Navigation() {
@@ -21,7 +17,7 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -29,67 +25,67 @@ export function Navigation() {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+        className={`fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-border/50"
-            : "bg-transparent"
-        }`}
+            ? "bg-card/80 backdrop-blur-2xl border border-border shadow-2xl shadow-black/20"
+            : "bg-transparent border border-transparent"
+        } rounded-full px-2 py-1.5`}
       >
-        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between lg:h-20">
-            {/* Logo */}
-            <a href="#" className="flex items-center gap-2.5 group">
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
-                <Hexagon className="h-5 w-5 text-primary" strokeWidth={2.5} />
-                <div className="absolute inset-0 rounded-xl bg-primary/5 blur-xl transition-all group-hover:bg-primary/10" />
-              </div>
-              <span className="text-lg font-bold tracking-tight text-foreground">
-                Hyper<span className="text-gradient">Resolution</span>
-              </span>
-            </a>
-
-            {/* Desktop Nav */}
-            <div className="hidden items-center gap-1 lg:flex">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="relative px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground after:absolute after:bottom-0.5 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-primary after:transition-all hover:after:w-4"
-                >
-                  {link.label}
-                </a>
-              ))}
+        <nav className="flex items-center gap-1">
+          {/* Logo */}
+          <a
+            href="#"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-white/5 transition-colors"
+          >
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/25">
+              <Hexagon className="h-3.5 w-3.5 text-primary" strokeWidth={2.5} />
             </div>
+            <span className="text-sm font-bold tracking-tight text-foreground hidden sm:inline">
+              Hyper<span className="text-glow">Resolution</span>
+            </span>
+          </a>
 
-            {/* Desktop CTAs */}
-            <div className="hidden items-center gap-3 lg:flex">
-              <Button variant="ghost" size="sm" className="text-sm font-medium">
-                Sign In
-              </Button>
-              <Button
-                size="sm"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm"
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-0.5 mx-2">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="px-3 py-1.5 text-[13px] font-medium text-muted-foreground hover:text-foreground rounded-full hover:bg-white/5 transition-all duration-200"
               >
-                Get Started
-              </Button>
-            </div>
-
-            {/* Mobile Toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-lg lg:hidden hover:bg-accent transition-colors"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </button>
+                {link.label}
+              </a>
+            ))}
           </div>
+
+          {/* CTA */}
+          <div className="hidden md:flex items-center gap-1 ml-1">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-[13px] font-medium text-muted-foreground hover:text-foreground rounded-full px-3"
+            >
+              Sign In
+            </Button>
+            <Button
+              size="sm"
+              className="btn-glow bg-primary text-primary-foreground hover:bg-primary/85 rounded-full px-4 text-[13px] font-semibold h-8"
+            >
+              Get Started
+              <ArrowRight className="ml-1 h-3 w-3" />
+            </Button>
+          </div>
+
+          {/* Mobile toggle */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex md:hidden h-8 w-8 items-center justify-center rounded-full hover:bg-white/5 transition-colors"
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
         </nav>
       </motion.header>
 
@@ -97,28 +93,26 @@ export function Navigation() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, scale: 0.95, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 bg-white/95 backdrop-blur-xl border-b border-border/50 lg:hidden"
+            className="fixed inset-x-4 top-20 z-40 rounded-2xl bg-card/95 backdrop-blur-2xl border border-border shadow-2xl shadow-black/30 p-4 md:hidden"
           >
-            <div className="mx-auto max-w-7xl px-4 py-4 space-y-1">
+            <div className="space-y-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent transition-colors"
+                  className="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-white/5 transition-colors"
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="pt-3 border-t border-border/50 flex flex-col gap-2">
-                <Button variant="ghost" className="w-full justify-start">
-                  Sign In
-                </Button>
-                <Button className="w-full bg-primary text-primary-foreground">
+              <div className="pt-3 mt-2 border-t border-border/50 flex gap-2">
+                <Button variant="ghost" className="flex-1 rounded-xl">Sign In</Button>
+                <Button className="flex-1 rounded-xl bg-primary text-primary-foreground">
                   Get Started
                 </Button>
               </div>

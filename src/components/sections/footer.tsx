@@ -2,29 +2,33 @@
 
 import { Separator } from "@/components/ui/separator";
 import { Hexagon } from "lucide-react";
+import { FadeIn } from "./animated-section";
 
 const footerLinks = {
-  Solutions: [
+  Product: [
     { label: "Health Tech", href: "#solutions" },
     { label: "Automobility", href: "#solutions" },
     { label: "AI Platform", href: "#features" },
-    { label: "Custom Integrations", href: "#features" },
+    { label: "Integrations", href: "#features" },
+    { label: "Pricing", href: "#" },
   ],
   Resources: [
     { label: "Documentation", href: "#" },
     { label: "API Reference", href: "#" },
-    { label: "Case Studies", href: "#" },
-    { label: "Blog", href: "#" },
+    { label: "Guides", href: "#" },
+    { label: "Changelog", href: "#" },
+    { label: "Status", href: "#" },
   ],
   Company: [
-    { label: "About Us", href: "#" },
+    { label: "About", href: "#" },
+    { label: "Blog", href: "#" },
     { label: "Careers", href: "#" },
     { label: "Partners", href: "#" },
     { label: "Contact", href: "#" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
+    { label: "Privacy", href: "#" },
+    { label: "Terms", href: "#" },
     { label: "Security", href: "#" },
     { label: "Compliance", href: "#" },
   ],
@@ -32,33 +36,35 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-card/50">
+    <footer className="relative border-t border-border/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Main footer content */}
-        <div className="py-12 lg:py-16 grid grid-cols-2 md:grid-cols-6 gap-8">
+        <div className="py-12 lg:py-16 grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-6">
           {/* Brand */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-4">
             <a href="#" className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-                <Hexagon className="h-4 w-4 text-primary" strokeWidth={2.5} />
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/15 ring-1 ring-primary/25">
+                <Hexagon className="h-3.5 w-3.5 text-primary" strokeWidth={2.5} />
               </div>
-              <span className="text-base font-bold tracking-tight text-foreground">
-                Hyper<span className="text-gradient">Resolution</span>
+              <span className="text-sm font-bold tracking-tight text-foreground">
+                Hyper<span className="text-glow">Resolution</span>
               </span>
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Precision solutions for health tech and automobility. Empowering
-              innovation through customizable, AI-driven platforms.
+              Precision solutions for health tech and automobility.
+              Built for teams that refuse to compromise.
             </p>
-            {/* Social links */}
-            <div className="mt-6 flex gap-3">
-              {["X", "Li", "Gh", "Yt"].map((social) => (
+            <div className="mt-6 flex gap-2">
+              {[
+                { label: "X", href: "#" },
+                { label: "in", href: "#" },
+                { label: "Gh", href: "#" },
+              ].map((s) => (
                 <a
-                  key={social}
-                  href="#"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted text-muted-foreground text-xs font-semibold hover:bg-primary/10 hover:text-primary transition-colors"
+                  key={s.label}
+                  href={s.href}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent hover:border-border transition-all duration-200"
                 >
-                  {social}
+                  {s.label}
                 </a>
               ))}
             </div>
@@ -66,8 +72,8 @@ export function Footer() {
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="text-sm font-semibold text-foreground mb-4">
+            <div key={category} className="md:col-span-2">
+              <h4 className="text-xs font-semibold text-foreground tracking-wide uppercase mb-4">
                 {category}
               </h4>
               <ul className="space-y-2.5">
@@ -75,7 +81,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
                     >
                       {link.label}
                     </a>
@@ -86,22 +92,18 @@ export function Footer() {
           ))}
         </div>
 
-        <Separator className="opacity-50" />
+        <Separator className="opacity-40" />
 
-        {/* Bottom bar */}
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} HyperResolution. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} HyperResolution Inc. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              All systems operational
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <a href="#" className="hover:text-foreground transition-colors">
-              Status
-            </a>
+            All systems operational
           </div>
         </div>
       </div>

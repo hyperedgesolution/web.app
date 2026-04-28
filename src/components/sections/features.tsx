@@ -1,10 +1,8 @@
 "use client";
 
-import {
-  AnimatedSection,
-  StaggerContainer,
-  StaggerItem,
-} from "./animated-section";
+import { useRef } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { FadeIn, StaggerContainer, StaggerItem } from "./animated-section";
 import {
   Blocks,
   Gauge,
@@ -17,88 +15,150 @@ import {
 const features = [
   {
     icon: Blocks,
-    title: "Modular Architecture",
+    title: "Modular by Design",
     description:
-      "Pick and choose modules to build exactly what you need. Every component is independently deployable and extensible.",
-    highlight: false,
+      "Every component is independently deployable. Mix and match modules to build exactly what you need — nothing more, nothing less.",
+    gradient: "from-emerald-500/15 to-teal-500/5",
   },
   {
     icon: Gauge,
-    title: "Real-Time Processing",
+    title: "Real-Time Everything",
     description:
-      "Sub-millisecond data pipelines powered by edge computing. Process millions of events per second with zero lag.",
-    highlight: false,
+      "Sub-millisecond event processing powered by edge computing. Millions of data points, zero lag, infinite scale.",
+    gradient: "from-teal-500/15 to-cyan-500/5",
   },
   {
     icon: Globe,
-    title: "Global Scalability",
+    title: "Deploy Anywhere",
     description:
-      "Deploy across 40+ regions with auto-scaling infrastructure. Your platform grows seamlessly with your business.",
-    highlight: false,
+      "40+ global regions with auto-scaling infrastructure. Your platform expands seamlessly as your business grows.",
+    gradient: "from-cyan-500/15 to-emerald-500/5",
   },
   {
     icon: Lock,
-    title: "Enterprise Security",
+    title: "Zero-Trust Security",
     description:
-      "Zero-trust architecture with end-to-end encryption, role-based access control, and continuous threat monitoring.",
-    highlight: false,
+      "End-to-end encryption, RBAC, continuous threat monitoring. Built for the most regulated industries on earth.",
+    gradient: "from-emerald-500/15 to-green-500/5",
   },
   {
     icon: Layers,
-    title: "Custom Workflows",
+    title: "Visual Workflow Builder",
     description:
-      "Visual workflow builder for creating bespoke automation pipelines without writing a single line of code.",
-    highlight: false,
+      "Drag-and-drop automation pipelines. Build complex workflows without writing a single line of code.",
+    gradient: "from-green-500/15 to-teal-500/5",
   },
   {
     icon: Zap,
-    title: "Lightning Fast",
+    title: "Instant Experiences",
     description:
-      "Optimized for speed with intelligent caching, CDN delivery, and progressive rendering for instant user experiences.",
-    highlight: false,
+      "Intelligent caching, CDN delivery, and progressive rendering. Your users get blazing-fast experiences, always.",
+    gradient: "from-teal-500/15 to-emerald-500/5",
   },
 ];
 
+function FeatureRow({
+  icon: Icon,
+  title,
+  description,
+  gradient,
+  index,
+}: {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  gradient: string;
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isEven = index % 2 === 0;
+
+  return (
+    <div ref={ref} className="relative py-12 lg:py-16">
+      <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center`}>
+        {/* Content side */}
+        <motion.div
+          initial={{ opacity: 0, x: isEven ? -30 : 30 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className={`${isEven ? "" : "lg:order-2"}`}
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} ring-1 ring-white/5`}>
+              <Icon className="h-5 w-5 text-primary" />
+            </div>
+            <span className="text-xs font-mono text-muted-foreground/60">
+              0{index + 1}
+            </span>
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">
+            {title}
+          </h3>
+          <p className="text-muted-foreground leading-relaxed">
+            {description}
+          </p>
+        </motion.div>
+
+        {/* Visual side */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className={`${isEven ? "" : "lg:order-1"}`}
+        >
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bento-card p-6 sm:p-8 flex items-center justify-center">
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-50`} />
+            <div className="absolute inset-0 dot-bg opacity-20" />
+            <div className="relative">
+              <Icon className="h-16 w-16 sm:h-20 sm:w-20 text-primary/20" strokeWidth={1} />
+            </div>
+            {/* Corner decorations */}
+            <div className="absolute top-3 left-3 h-6 w-6 border-l border-t border-primary/20 rounded-tl-lg" />
+            <div className="absolute bottom-3 right-3 h-6 w-6 border-r border-b border-primary/20 rounded-br-lg" />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Separator line */}
+      {index < features.length - 1 && (
+        <div className="absolute bottom-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      )}
+    </div>
+  );
+}
+
 export function Features() {
   return (
-    <section id="features" className="py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-medium text-primary tracking-wide uppercase mb-3">
-            Why HyperResolution
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Built for Innovation,{" "}
-            <span className="text-gradient">Engineered for Scale</span>
-          </h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            Every feature is designed with precision to deliver unmatched
-            performance, security, and flexibility for your most demanding
-            workloads.
-          </p>
-        </AnimatedSection>
+    <section id="features" className="relative py-24 lg:py-32 overflow-hidden">
+      <div className="absolute inset-0 grid-bg opacity-40" />
 
-        <StaggerContainer
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
-          staggerDelay={0.08}
-        >
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            return (
-              <StaggerItem key={feature.title}>
-                <div className="group relative h-full rounded-2xl border border-border/60 bg-card p-6 card-hover">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/8 transition-colors group-hover:bg-primary/12">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="text-base font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FadeIn className="text-center max-w-2xl mx-auto mb-8">
+          <p className="text-xs font-medium text-primary tracking-widest uppercase mb-4">
+            Platform Capabilities
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.02em]">
+            Engineered for
+            <br />
+            <span className="text-glow">the impossible.</span>
+          </h2>
+        </FadeIn>
+
+        <FadeIn delay={0.15} className="text-center mb-16">
+          <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+            Six foundational pillars that make HyperResolution the platform of choice for teams building at the edge of what&apos;s possible.
+          </p>
+        </FadeIn>
+
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent -translate-x-1/2" />
+
+          {features.map((feature, i) => (
+            <FeatureRow key={feature.title} {...feature} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );

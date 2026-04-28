@@ -13,7 +13,7 @@ import { Footer } from "@/components/sections/footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
       <Navigation />
       <main className="flex-1">
         <Hero />
