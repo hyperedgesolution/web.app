@@ -71,22 +71,21 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
+          className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4"
         >
           <Button
             size="lg"
-            className="btn-glow bg-primary text-primary-foreground hover:bg-primary/85 rounded-full h-12 px-7 text-sm font-semibold shadow-lg shadow-primary/20"
+            className="btn-glow bg-primary text-primary-foreground hover:bg-primary/85 rounded-full h-12 px-7 text-sm font-semibold shadow-lg shadow-primary/20 w-full sm:w-auto"
           >
-            Start Building Free
+            Schedule a Meeting
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Button
             size="lg"
             variant="outline"
-            className="rounded-full h-12 px-7 text-sm font-semibold border-border bg-white/80 backdrop-blur-sm hover:bg-white text-foreground"
-          >
-            Watch Demo
-          </Button>
+            className="rounded-full h-12 px-8 text-sm font-semibold border-border bg-white/80 backdrop-blur-sm hover:bg-white text-foreground w-full sm:w-auto"
+            asChild
+          ><a href="#solutions">Our Solutions</a></Button>
         </motion.div>
 
         {/* Bento Grid Preview */}

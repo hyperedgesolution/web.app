@@ -49,7 +49,7 @@ export function CTASection() {
                     "99.99% SLA guarantee",
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-sm text-white/80">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-300 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-red-300 shrink-0" />
                       {item}
                     </div>
                   ))}
@@ -58,7 +58,7 @@ export function CTASection() {
 
               {/* Right - Form */}
               <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 sm:p-8">
-                <h3 className="text-lg font-bold mb-1 text-white">Start Your Free Trial</h3>
+                <h3 className="text-lg font-bold mb-1 text-white">Schedule a Meeting</h3>
                 <p className="text-sm text-white/60 mb-6">
                   Get started in minutes. No commitment.
                 </p>
@@ -94,7 +94,7 @@ export function CTASection() {
                     type="submit"
                     className="btn-glow w-full h-11 bg-white text-primary hover:bg-white/90 rounded-xl text-sm font-semibold shadow-lg shadow-black/10"
                   >
-                    Get Started Free
+                    Schedule a Meeting
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </form>
